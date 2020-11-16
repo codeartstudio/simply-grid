@@ -1,0 +1,16 @@
+{
+    "name": "webenter/simply-grid",
+    "type": "library",
+    "description": "Simply Grid in Laravel",
+    "keywords": ["simply", "grid", "laravel"],
+    "homepage": "https://codeartstudio.net/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gutan Mihai",
+            "email": "gutan.mihai@gmail.com",
+            "homepage": "https://codeartstudio.net/",
+            "role": "Developer"
+        }
+    ],
+}
