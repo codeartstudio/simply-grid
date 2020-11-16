@@ -1,0 +1,16 @@
+{
+    "name": "codeartstudio/simply-grid",
+    "type": "library",
+    "description": "Simply Grid in Laravel",
+    "keywords": ["simply", "grid", "laravel"],
+    "homepage": "https://codeartstudio.net/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CodeArt Studio",
+            "email": "codeartmd@gmail.com",
+            "homepage": "https://codeartstudio.net/",
+            "role": "Developer"
+        }
+    ]
+}
