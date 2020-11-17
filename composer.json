@@ -5,6 +5,9 @@
     "keywords": ["simply", "grid", "laravel"],
     "homepage": "https://codeartstudio.net/",
     "license": "MIT",
+    "require": {
+        "php": "^7.4"
+    },
     "authors": [
         {
             "name": "CodeArt Studio",
@@ -12,5 +15,10 @@
             "homepage": "https://codeartstudio.net/",
             "role": "Developer"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "CaS\\SimplyGrid\\": "src/"
+        }
+    }
 }
