@@ -15,7 +15,7 @@ class DirectiveServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cas_simplygrid');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'cas_simplygrid');
         require_once __DIR__ . '/../Directive/directive.php';
 
         \Blade::directive('gridView', function ($expression) {

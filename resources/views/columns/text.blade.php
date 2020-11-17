@@ -1,1 +1,1 @@
-{{ $attribute }}
+{!! $attribute !!}
