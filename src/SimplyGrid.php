@@ -6,7 +6,6 @@ use CaS\SimplyGrid\Pub\AbstractGrid;
 
 /**
  * Simply Grid in Laravel
- * @package CaS\SimplyGrid
  */
 class SimplyGrid
 {
@@ -20,7 +19,6 @@ class SimplyGrid
                 'cas_simplygrid::grid',
                 [
                     'grid' => $grid,
-                    'router_list' => $grid->getRouterList(),
                     'column_list' => $grid->getColumnList(),
                     'filter_list' => $grid->getFilterList(),
                 ]

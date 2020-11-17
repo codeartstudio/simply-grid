@@ -6,7 +6,7 @@
             <div class="col-lg-9 col-xl-8">
                 <div class="row align-items-center">
                     @foreach($filter_list as $filter)
-                        {{ $filter->getClass()->render($filter) }}
+                        {{ $filter->type->render($filter) }}
                     @endforeach
                 </div>
             </div>
@@ -26,7 +26,7 @@
     <thead>
         <tr>
             @foreach($column_list as $column)
-            <th title="{{ $column->getTitle() }}">{{ $column->getTitle() }}</th>
+            <th title="{{ $column->title }}">{{ $column->title }}</th>
             @endforeach
         </tr>
     </thead>
@@ -34,7 +34,7 @@
         @foreach($grid->getPaginator() as $model)
         <tr>
             @foreach($column_list as $column)
-            <td>{{ $column->getClass()->render($column, $model) }}</td>
+            <td>{{ $column->type->render($column, $model) }}</td>
             @endforeach
         </tr>
         @endforeach

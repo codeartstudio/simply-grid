@@ -8,7 +8,7 @@ use CaS\SimplyGrid\SimplyGrid;
  * @param AbstractGrid $grid
  * @return string
  */
-function grid(AbstractGrid $grid): string
+function gridView(AbstractGrid $grid): string
 {
     return (new SimplyGrid())->render($grid);
 }

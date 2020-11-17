@@ -7,7 +7,6 @@ use CaS\SimplyGrid\Exception\ContainerValidationException;
 
 /**
  * Container validation
- * @package CaS\SimplyGrid\Container
  */
 abstract class ValidateContainer implements \ArrayAccess
 {
@@ -15,12 +14,6 @@ abstract class ValidateContainer implements \ArrayAccess
      * @var array
      */
     private array $_data;
-
-    /**
-     * Get additional property list
-     * @return array
-     */
-    abstract public function getAdditionalProperty(): array;
 
     /**
      * Get required property list
@@ -158,7 +151,7 @@ abstract class ValidateContainer implements \ArrayAccess
                 sprintf(
                     'Missing required properties [%s] in container %s',
                     implode(',', array_keys(array_diff_key($required_properties, $intersect_properties))),
-                    self::class
+                    static::class
                 )
             );
         }
@@ -171,13 +164,14 @@ abstract class ValidateContainer implements \ArrayAccess
      */
     private function _checkForbiddenProperties(array $data)
     {
-        $allowed_properties = array_flip($this->getRequiredProperty()) + array_keys($this->getAdditionalProperty());
-        if (count(array_intersect_key($data, $allowed_properties)) != count($allowed_properties)) {
+        $allowed_properties = array_flip($this->getRequiredProperty());
+
+        if (count(array_diff_key($data, $allowed_properties)) > 0) {
             throw new ContainerValidationException(
                 sprintf(
                     'Properties [%s] are not declared in container %s',
                     implode(',', array_keys(array_diff_key($data, $allowed_properties))),
-                    self::class
+                    static::class
                 )
             );
         }

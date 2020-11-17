@@ -6,7 +6,7 @@
                 readonly="readonly"
                 value="{{ date('d/m/Y') }}"
                 id="kt_datepicker"
-                name="{{ $filter['attribute'] }}" />
+                name="{{ $attribute }}" />
         <div class="input-group-append">
             <span class="input-group-text"><i class="la la-calendar"></i></span>
         </div>

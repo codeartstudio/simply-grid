@@ -2,33 +2,24 @@
 
 namespace CaS\SimplyGrid\Pub;
 
-use CaS\SimplyGrid\Pub\Container\ColumnContainer;
-use CaS\SimplyGrid\Pub\Container\FilterContainer;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 /**
- * AbstractGrid
- * @package CaS\SimplyGrid
+ * Abstract grid
  */
 abstract class AbstractGrid
 {
     /**
      * Get column list
-     * @return ColumnContainer[]
+     * @return array
      */
     abstract public function getColumnList(): array;
 
     /**
      * Get filter list
-     * @return FilterContainer[]
-     */
-    abstract public function getFilterList(): array;
-
-    /**
-     * Get action router list
      * @return array
      */
-    abstract public function getRouterList(): array;
+    abstract public function getFilterList(): array;
 
     /**
      * Get model class instance for grid

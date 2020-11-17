@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Service provider to add directive grid
- * @package CaS\SimplyGrid\Provider
  */
 class DirectiveServiceProvider extends ServiceProvider
 {
@@ -19,8 +18,8 @@ class DirectiveServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cas_simplygrid');
         require_once __DIR__ . '/../Directive/directive.php';
 
-        \Blade::directive('grid', function ($expression) {
-            return "<?php echo grid($expression) ?>";
+        \Blade::directive('gridView', function ($expression) {
+            return "<?php echo gridView($expression) ?>";
         });
     }
 
