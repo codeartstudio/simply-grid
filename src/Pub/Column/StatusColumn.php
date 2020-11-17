@@ -43,7 +43,13 @@ class StatusColumn extends ValidateContainer implements ColumnAwareInterface
 	 */
     public function render(EloquentModel $model): string
     {
-    	$attribute = (int) $model->getAttribute($this->attribute);
+	    if (strpos($this->attribute, '.') !== false) {
+		    [$relation, $field] = explode('.', $this->attribute);
+		    $attribute = (int) $model->getRelationValue($relation)->$field;
+	    } else {
+		    $attribute = (int) $model->getAttribute($this->attribute);
+	    }
+
     	$value_map = $this->_getKeyValue($attribute);
 
         return view(

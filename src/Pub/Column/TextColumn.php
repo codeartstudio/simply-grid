@@ -40,11 +40,13 @@ class TextColumn extends ValidateContainer implements ColumnAwareInterface
 	 */
     public function render(EloquentModel $model): string
     {
-        return view(
-        	'cas_simplygrid::columns.text',
-	        [
-	        	'attribute' => $model->getAttribute($this->attribute),
-	        ]
-        )->render();
+	    if (strpos($this->attribute, '.') !== false) {
+		    [$relation, $field] = explode('.', $this->attribute);
+		    $attribute = $model->getRelationValue($relation)->$field;
+	    } else {
+		    $attribute = $model->getAttribute($this->attribute);
+	    }
+
+	    return view('cas_simplygrid::columns.text', ['attribute' => $attribute])->render();
     }
 }
