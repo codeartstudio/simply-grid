@@ -5,7 +5,7 @@
         <div class="col-lg-9 col-xl-8">
             <div class="row align-items-center">
                 @foreach($filter_list as $filter)
-                    {!! $filter->type->render() !!}
+                    {!! $filter->render() !!}
                 @endforeach
             </div>
         </div>
@@ -32,7 +32,7 @@
         @foreach($grid->getPaginator() as $model)
         <tr>
             @foreach($column_list as $column)
-            <td>{!! $column->type->render($model) !!}</td>
+            <td>{!! $column->render($model) !!}</td>
             @endforeach
         </tr>
         @endforeach
