@@ -43,7 +43,7 @@ class StatusColumn extends ValidateContainer implements ColumnAwareInterface
 	 */
     public function render(EloquentModel $model): string
     {
-    	$attribute = $model->getAttribute($this->attribute);
+    	$attribute = (int) $model->getAttribute($this->attribute);
     	$value_map = $this->_getKeyValue($attribute);
 
         return view(
@@ -58,10 +58,10 @@ class StatusColumn extends ValidateContainer implements ColumnAwareInterface
 	/**
 	 * Get value by key
 	 * @param $key
-	 * @return mixed
+	 * @return array
 	 * @throws BadUsageException
 	 */
-	private function _getKeyValue($key)
+	private function _getKeyValue($key): array
 	{
 		if (!isset($this->values[$key])) {
 			throw new BadUsageException(

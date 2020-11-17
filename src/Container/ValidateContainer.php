@@ -56,6 +56,18 @@ abstract class ValidateContainer implements \ArrayAccess
         return $this->_data[$key];
     }
 
+	/**
+	 * Whether or not an data exists by key
+	 *
+	 * @param string An data key to check for
+	 * @access public
+	 * @return boolean
+	 */
+	public function __isset ($key): bool
+	{
+		return isset($this->_data[$key]);
+	}
+
     /**
      * Assigns a value to the specified data
      *
@@ -66,19 +78,6 @@ abstract class ValidateContainer implements \ArrayAccess
     public function __set($key, $value)
     {
         throw new BadUsageException('Set method is not allowed in container');
-    }
-
-    /**
-     * Whether or not an data exists by key
-     *
-     * @param string An data key to check for
-     * @access public
-     * @return boolean
-     * @throws BadUsageException
-     */
-    public function __isset ($key): bool
-    {
-        throw new BadUsageException('Isset method is not allowed in container');
     }
 
     /**
