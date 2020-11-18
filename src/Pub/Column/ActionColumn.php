@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 /**
  * Show grid actions column
- * @property-read string $edit
- * @property-read string $delete
+ * @property-read string $title
+ * @property-read string $alias
+ * @property-read array $routes
  */
 class ActionColumn extends ValidateContainer implements ColumnAwareInterface
 {
@@ -19,7 +20,7 @@ class ActionColumn extends ValidateContainer implements ColumnAwareInterface
 	 */
 	public function getRequiredProperty(): array
 	{
-		return ['edit', 'delete'];
+		return ['title', 'alias', 'routes'];
 	}
 
 	/**
@@ -29,8 +30,9 @@ class ActionColumn extends ValidateContainer implements ColumnAwareInterface
 	public function getPropertyType(): array
 	{
 		return [
-			'edit' => 'string',
-			'delete' => 'string',
+			'title' => 'string',
+			'alias' => 'string',
+			'routes' => 'array',
 		];
 	}
 
@@ -44,14 +46,14 @@ class ActionColumn extends ValidateContainer implements ColumnAwareInterface
         	'cas_simplygrid::columns.action',
 	        [
 	        	'edit_route' => route(
-			        $this->edit,
+			        $this->routes['edit'],
 			        [
 				        'locale' => locale()->current()->value,
 				        'id' => $model->getAttribute('id'),
 			        ]
 		        ),
 	        	'delete_route' => route(
-			        $this->delete,
+			        $this->routes['delete'],
 			        [
 				        'locale' => locale()->current()->value,
 				        'id' => $model->getAttribute('id'),

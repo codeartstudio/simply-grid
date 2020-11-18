@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 /**
  * Show grid status column
  * @property-read string $title
+ * @property-read string $alias
  * @property-read string $attribute
  * @property-read array $values
  */
@@ -21,7 +22,7 @@ class StatusColumn extends ValidateContainer implements ColumnAwareInterface
 	 */
 	public function getRequiredProperty(): array
 	{
-		return ['title', 'attribute', 'values'];
+		return ['title', 'alias', 'attribute', 'values'];
 	}
 
 	/**
@@ -32,6 +33,7 @@ class StatusColumn extends ValidateContainer implements ColumnAwareInterface
 	{
 		return [
 			'title' => 'string',
+			'alias' => 'string',
 			'attribute' => 'string',
 			'values' => 'array',
 		];

@@ -1,18 +1,18 @@
-@if(count($filter_list) > 0)
+@if(count($grid->getFilterList()) > 0)
 <!--begin::Search Form-->
 <div class="mt-2 mb-7">
     <form action="" method="get" class="row align-items-center">
-        <div class="col-lg-9 col-xl-8">
+        <div class="col-lg-12">
             <div class="row align-items-center">
-                @foreach($filter_list as $filter)
+                @foreach($grid->getFilterList() as $filter)
                     {!! $filter->render() !!}
                 @endforeach
+                <div class="col-md-3 my-2 my-md-0">
+                    <button type="submit" class="btn btn-light-primary px-6 font-weight-bold">
+                        {{ __('grid.button-search-submit') }}
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-            <button type="submit" class="btn btn-light-primary px-6 font-weight-bold">
-                {{ __('grid.button-search-submit') }}
-            </button>
         </div>
     </form>
 </div>
@@ -23,16 +23,16 @@
 <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
     <thead>
         <tr>
-            @foreach($column_list as $column)
-            <th title="{{ $column->title }}">{!! $column->title !!}</th>
+            @foreach($grid->getColumnList() as $column)
+                <th data-alias="{{ $column->alias }}">{{ $column->title }}</th>
             @endforeach
         </tr>
     </thead>
     <tbody>
         @foreach($grid->getPaginator() as $model)
         <tr>
-            @foreach($column_list as $column)
-            <td>{!! $column->render($model) !!}</td>
+            @foreach($grid->getColumnList() as $column)
+                <td data-alias="{{ $column->alias }}">{!! $column->render($model) !!}</td>
             @endforeach
         </tr>
         @endforeach
@@ -47,35 +47,75 @@
 {{-- Scripts Section --}}
 @section('scripts')
     <script>
-        jQuery(document).ready(function() {
-            new KTGrid(
-                'kt_datatable',
-                {
-                    translate: {
-                        records: {
-                            processing: '{{ __('grid.processing') }}',
-                            noRecords: '{{ __('grid.no-records') }}',
-                        },
-                        toolbar: {
-                            pagination: {
-                                items: {
-                                    default: {
-                                        first: '{{ __('grid.pagination-first') }}',
-                                        prev: '{{ __('grid.pagination-prev') }}',
-                                        next: '{{ __('grid.pagination-next') }}',
-                                        last: '{{ __('grid.pagination-last') }}',
-                                        more: '{{ __('grid.pagination-more') }}',
-                                        input: '{{ __('grid.pagination-input') }}',
-                                        select: '{{ __('grid.pagination-select') }}',
-                                        all: '{{ __('grid.pagination-all') }}',
-                                    },
-                                    info: '{{ __('grid.pagination-info') }}',
-                                },
+        var KTGridInitiator = function () {
+            // Private functions
+            var grids = function () {
+                new KTGrid(
+                    'kt_datatable',
+                    {
+                        columns: [
+                            {
+                                alias: 'status',
+                                width: 100,
+                            },
+                            {
+                                alias: 'actions',
+                                width: 100,
+                                autoHide: false,
+                            }
+                        ],
+                        translate: {
+                            records: {
+                                processing: '{{ __('grid.processing') }}',
+                                noRecords: '{{ __('grid.no-records') }}',
                             },
                         },
-                    },
+                    }
+                );
+
+            }
+
+            return {
+                // public functions
+                init: function() {
+                    grids();
                 }
-            );
+            };
+        }();
+
+        var KTBootstrapDatepicker = function () {
+            // Private functions
+            var datepickers = function () {
+                // enable clear button
+                var $kt_datepicker = $('#kt_datepicker');
+                if (!$kt_datepicker.length) {
+                    return;
+                }
+
+                $($kt_datepicker).datepicker({
+                    rtl: false,
+                    todayBtn: "linked",
+                    clearBtn: true,
+                    todayHighlight: true,
+                    templates: {
+                        leftArrow: '<i class="la la-angle-left"></i>',
+                        rightArrow: '<i class="la la-angle-right"></i>'
+                    }
+                });
+            }
+
+            return {
+                // public functions
+                init: function() {
+                    datepickers();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function() {
+            KTGridInitiator.init();
+            KTBootstrapDatepicker.init();
+            $('input, select').selectpicker();
         });
     </script>
 @endsection

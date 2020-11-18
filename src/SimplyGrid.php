@@ -15,14 +15,6 @@ class SimplyGrid
      */
     public function render(AbstractGrid $grid): string
     {
-        return view(
-                'cas_simplygrid::grid',
-                [
-                    'grid' => $grid,
-                    'column_list' => $grid->getColumnList(),
-                    'filter_list' => $grid->getFilterList(),
-                ]
-            )
-            ->render();
+        return view('cas_simplygrid::grid', ['grid' => $grid])->render();
     }
 }

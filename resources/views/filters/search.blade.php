@@ -1,4 +1,4 @@
-<div class="col-md-4 my-2 my-md-0">
+<div class="col-md-3 my-2 my-md-0">
     <div class="input-icon">
         <input
                 type="text"

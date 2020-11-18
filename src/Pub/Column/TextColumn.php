@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 /**
  * Show grid text column
  * @property-read string $title
+ * @property-read string $alias
  * @property-read string $attribute
  */
 class TextColumn extends ValidateContainer implements ColumnAwareInterface
@@ -19,7 +20,7 @@ class TextColumn extends ValidateContainer implements ColumnAwareInterface
 	 */
 	public function getRequiredProperty(): array
 	{
-		return ['title', 'attribute'];
+		return ['title', 'alias', 'attribute'];
 	}
 
 	/**
@@ -30,6 +31,7 @@ class TextColumn extends ValidateContainer implements ColumnAwareInterface
 	{
 		return [
 			'title' => 'string',
+			'alias' => 'string',
 			'attribute' => 'string',
 		];
 	}
