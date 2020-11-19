@@ -2,6 +2,8 @@
 <!--begin::Search Form-->
 <div class="mt-2 mb-7">
     <form action="" method="get" class="row align-items-center">
+        @csrf
+
         <div class="col-lg-12">
             <div class="row align-items-center">
                 @foreach($grid->getFilterList() as $filter)
@@ -20,24 +22,26 @@
 @endif
 
 <!--begin: Datatable-->
-<table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
-    <thead>
-        <tr>
-            @foreach($grid->getColumnList() as $column)
-                <th data-alias="{{ $column->alias }}">{{ $column->title }}</th>
-            @endforeach
-        </tr>
-    </thead>
-    <tbody>
+<div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
+    <table>
+        <thead>
+            <tr>
+                @foreach($grid->getColumnList() as $column)
+                    <th data-alias="{{ $column->alias }}">{{ $column->title }}</th>
+                @endforeach
+            </tr>
+        </thead>
+        <tbody>
         @foreach($grid->getPaginator() as $model)
-        <tr>
-            @foreach($grid->getColumnList() as $column)
-                <td data-alias="{{ $column->alias }}">{!! $column->render($model) !!}</td>
-            @endforeach
-        </tr>
+            <tr>
+                @foreach($grid->getColumnList() as $column)
+                    <td data-alias="{{ $column->alias }}">{!! $column->render($model) !!}</td>
+                @endforeach
+            </tr>
         @endforeach
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 <!--end: Datatable-->
 
 <!-- Pagination -->

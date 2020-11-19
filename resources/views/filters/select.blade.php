@@ -3,7 +3,9 @@
         <label class="mr-3 mb-0 d-none d-md-block">{!! $title !!}</label>
         <select class="form-control" name="{{ $attribute }}">
             @foreach($values as $option)
-                <option value="{{ $option['value'] }}" @if(old($attribute) == $option['value']) selected="selected" @endif>
+                <option
+                        value="{{ $option['value'] }}"
+                        @if(!is_null(old($attribute)) && old($attribute) == $option['value']) selected="selected" @endif>
                     {!! $option['title'] !!}
                 </option>
             @endforeach

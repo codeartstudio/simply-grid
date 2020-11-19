@@ -4,7 +4,7 @@
                 type="text"
                 class="form-control"
                 readonly="readonly"
-                value="{{ old($attribute) ?? date('d/m/Y') }}"
+                value="{{ old($attribute) ?? date('m/d/Y') }}"
                 id="kt_datepicker"
                 name="{{ $attribute }}" />
         <div class="input-group-append">
