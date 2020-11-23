@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
  * @property-read string $title
  * @property-read string $alias
  * @property-read array $routes
+ * @property-read string $route_param
+ * @property-read string $confirm_title
+ * @property-read string $confirm_description
  */
 class ActionColumn extends ValidateContainer implements ColumnAwareInterface
 {
@@ -20,7 +23,14 @@ class ActionColumn extends ValidateContainer implements ColumnAwareInterface
 	 */
 	public function getRequiredProperty(): array
 	{
-		return ['title', 'alias', 'routes'];
+		return [
+			'title',
+			'alias',
+			'routes',
+			'route_param',
+			'confirm_title',
+			'confirm_description',
+		];
 	}
 
 	/**
@@ -33,6 +43,9 @@ class ActionColumn extends ValidateContainer implements ColumnAwareInterface
 			'title' => 'string',
 			'alias' => 'string',
 			'routes' => 'array',
+			'route_param' => 'string',
+			'confirm_title' => 'string',
+			'confirm_description' => 'string',
 		];
 	}
 
@@ -40,26 +53,28 @@ class ActionColumn extends ValidateContainer implements ColumnAwareInterface
 	 * @inheritDoc
 	 * @see ColumnAwareInterface::render()
 	 */
-    public function render(EloquentModel $model): string
-    {
-        return view(
-        	'cas_simplygrid::columns.action',
-	        [
-	        	'edit_route' => route(
-			        $this->routes['edit'],
-			        [
-				        'locale' => locale()->current()->value,
-				        'id' => $model->getAttribute('id'),
-			        ]
-		        ),
-	        	'delete_route' => route(
-			        $this->routes['delete'],
-			        [
-				        'locale' => locale()->current()->value,
-				        'id' => $model->getAttribute('id'),
-			        ]
-		        ),
-	        ]
-        )->render();
-    }
+	public function render(EloquentModel $model): string
+	{
+		return view(
+			'cas_simplygrid::columns.action',
+			[
+				'edit_route' => route(
+					$this->routes['edit'],
+					[
+						'locale' => locale()->current()->value,
+						$this->route_param => $model->getAttribute('id'),
+					]
+				),
+				'delete_route' => route(
+					$this->routes['delete'],
+					[
+						'locale' => locale()->current()->value,
+						$this->route_param => $model->getAttribute('id'),
+					]
+				),
+				'confirm_title' => $this->confirm_title,
+				'confirm_description' => $this->confirm_description,
+			]
+		)->render();
+	}
 }

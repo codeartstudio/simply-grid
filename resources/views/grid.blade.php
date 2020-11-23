@@ -1,35 +1,35 @@
 @if(count($grid->getFilterList()) > 0)
-<!--begin::Search Form-->
-<div class="mt-2 mb-7">
-    <form action="" method="get" class="row align-items-center">
-        @csrf
+    <!--begin::Search Form-->
+    <div class="mt-2 mb-7">
+        <form action="" method="get" class="row align-items-center">
+            @csrf
 
-        <div class="col-lg-12">
-            <div class="row align-items-center">
-                @foreach($grid->getFilterList() as $filter)
-                    {!! $filter->render() !!}
-                @endforeach
-                <div class="col-md-3 my-2 my-md-0">
-                    <button type="submit" class="btn btn-light-primary px-6 font-weight-bold">
-                        {{ __('grid.button-search-submit') }}
-                    </button>
+            <div class="col-lg-12">
+                <div class="row align-items-center">
+                    @foreach($grid->getFilterList() as $filter)
+                        {!! $filter->render() !!}
+                    @endforeach
+                    <div class="col-md-3 my-2 my-md-0">
+                        <button type="submit" class="btn btn-light-primary px-6 font-weight-bold">
+                            {{ __('grid.button-search-submit') }}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
-<!--end::Search Form-->
+        </form>
+    </div>
+    <!--end::Search Form-->
 @endif
 
 <!--begin: Datatable-->
 <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
     <table>
         <thead>
-            <tr>
-                @foreach($grid->getColumnList() as $column)
-                    <th data-alias="{{ $column->alias }}">{{ $column->title }}</th>
-                @endforeach
-            </tr>
+        <tr>
+            @foreach($grid->getColumnList() as $column)
+                <th data-alias="{{ $column->alias }}">{{ $column->title }}</th>
+            @endforeach
+        </tr>
         </thead>
         <tbody>
         @foreach($grid->getPaginator() as $model)
@@ -41,18 +41,21 @@
         @endforeach
         </tbody>
     </table>
+    <!-- Pagination -->
+    {{ $grid->getPaginator()->links() }}
+    <!-- /Pagination -->
 </div>
 <!--end: Datatable-->
-
-<!-- Pagination -->
-{{ $grid->getPaginator()->links() }}
-<!-- /Pagination -->
 
 {{-- Scripts Section --}}
 @section('scripts')
     <script>
         var KTGridInitiator = function () {
             // Private functions
+            var confirmDelete = function () {
+                $('form[data-delete-form]').submit();
+            }
+
             var grids = function () {
                 new KTGrid(
                     'kt_datatable',
@@ -76,13 +79,15 @@
                         },
                     }
                 );
-
             }
 
             return {
                 // public functions
                 init: function() {
                     grids();
+                },
+                delete: function () {
+                    confirmDelete();
                 }
             };
         }();
