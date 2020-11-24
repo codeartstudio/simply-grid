@@ -55,23 +55,38 @@ class ActionColumn extends ValidateContainer implements ColumnAwareInterface
 	 */
 	public function render(EloquentModel $model): string
 	{
+		$mark_active_route = null;
+		$is_mark_active = false;
+		$is_mark_available = false;
+		if (array_key_exists('mark', $this->routes)) {
+			$is_mark_active = $model->isMarkActive();
+			$is_mark_available = $model->isMarkAvailable();
+			$mark_active_route = path(
+				$this->routes['mark'],
+				[
+					$this->route_param => $model->getAttribute('id')
+				]
+			);
+		}
+
 		return view(
 			'cas_simplygrid::columns.action',
 			[
-				'edit_route' => route(
+				'edit_route' => path(
 					$this->routes['edit'],
 					[
-						'locale' => locale()->current()->value,
 						$this->route_param => $model->getAttribute('id'),
 					]
 				),
-				'delete_route' => route(
+				'delete_route' => path(
 					$this->routes['delete'],
 					[
-						'locale' => locale()->current()->value,
 						$this->route_param => $model->getAttribute('id'),
 					]
 				),
+				'is_mark_active' => $is_mark_active,
+				'is_mark_available' => $is_mark_available,
+				'mark_active_route' => $mark_active_route,
 				'confirm_title' => $this->confirm_title,
 				'confirm_description' => $this->confirm_description,
 			]

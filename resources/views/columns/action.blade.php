@@ -1,11 +1,31 @@
-<div class="d-flex">
-    <a href="{{ $edit_route }}" class="btn btn-sm btn-clean btn-icon mr-2">
+<div class="d-flex justify-content-center">
+    @if($mark_active_route && $is_mark_available)
+        @if($is_mark_active)
+            <button class="btn btn-sm btn-clean btn-icon">
+                <span class="svg-icon svg-icon-warning svg-icon-md">
+                    {{ Metronic::getSVG('media/svg/icons/General/Star.svg') }}
+                </span>
+            </button>
+        @else
+            <form action="{{ $mark_active_route }}" method="post" class="">
+                @csrf
+
+                <button type="submit" class="btn btn-sm btn-clean btn-icon">
+                    <span class="svg-icon svg-icon-md">
+                        {{ Metronic::getSVG('media/svg/icons/General/Star.svg') }}
+                    </span>
+                </button>
+            </form>
+        @endif
+    @endif
+
+    <a href="{{ $edit_route }}" class="btn btn-sm btn-clean btn-icon">
         <span class="svg-icon svg-icon-md">
             {{ Metronic::getSVG('media/svg/icons/General/Edit.svg') }}
         </span>
     </a>
 
-    <button type="button" class="btn btn-sm btn-clean btn-icon mr-2" data-toggle="modal" data-target="#confirm-delete-modal">
+    <button type="button" class="btn btn-sm btn-clean btn-icon" data-toggle="modal" data-target="#confirm-delete-modal">
         <span class="svg-icon svg-icon-md">
             {{ Metronic::getSVG('media/svg/icons/General/Trash.svg') }}
         </span>
